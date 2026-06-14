@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Генератор идей</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -12,70 +15,128 @@
     }
 
     body {
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #2d3748;
+      background: #eef1f8;
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(102, 126, 234, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 2rem;
+      padding: 2.5rem 1.5rem;
     }
 
     .container {
-      background: #fff;
-      border-radius: 16px;
-      padding: 2.5rem 3rem;
-      max-width: 480px;
+      background: #ffffff;
+      border-radius: 20px;
+      max-width: 520px;
       width: 100%;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      border: 1px solid rgba(102, 126, 234, 0.12);
+      box-shadow:
+        0 4px 6px rgba(0, 0, 0, 0.04),
+        0 20px 50px rgba(102, 126, 234, 0.12);
+    }
+
+    .header {
+      padding: 2.5rem 2.5rem 2rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
     }
 
     h1 {
-      font-size: 1.75rem;
-      color: #1a1a2e;
-      margin-bottom: 0.5rem;
+      font-size: 1.875rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.35rem;
     }
 
     .subtitle {
-      color: #666;
-      font-size: 0.95rem;
-      margin-bottom: 2rem;
+      font-size: 1rem;
+      font-weight: 400;
+      opacity: 0.88;
+    }
+
+    .content {
+      padding: 2rem 2.5rem 2.5rem;
+    }
+
+    .list-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #718096;
+      margin-bottom: 1.25rem;
     }
 
     ul {
       list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.875rem;
     }
 
     li {
-      padding: 1rem 1.25rem;
-      margin-bottom: 0.75rem;
-      background: #f8f9fc;
-      border-radius: 10px;
-      border-left: 4px solid #667eea;
-      font-size: 1rem;
-      color: #333;
-      transition: transform 0.15s, box-shadow 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.125rem 1.25rem;
+      background: #f7f8fc;
+      border-radius: 12px;
+      border: 1px solid #e8ecf4;
+      font-size: 0.975rem;
+      font-weight: 500;
+      color: #2d3748;
+      transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+
+    li::before {
+      content: counter(item);
+      counter-increment: item;
+      flex-shrink: 0;
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      border-radius: 8px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: #667eea;
+      border: 1px solid #e0e7ff;
+    }
+
+    ul {
+      counter-reset: item;
     }
 
     li:hover {
-      transform: translateX(4px);
-      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
-    }
-
-    li:last-child {
-      margin-bottom: 0;
+      background: #fff;
+      border-color: #c7d2fe;
+      box-shadow: 0 4px 16px rgba(102, 126, 234, 0.1);
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Генератор идей</h1>
-    <p class="subtitle">для постов</p>
-    <ul>
-      <li>5 идей постов для экспертов</li>
-      <li>3 идеи сторис на сегодня</li>
-      <li>Контент-план на неделю</li>
-    </ul>
+    <header class="header">
+      <h1>Генератор идей</h1>
+      <p class="subtitle">для постов</p>
+    </header>
+    <div class="content">
+      <p class="list-title">Что можно создать</p>
+      <ul>
+        <li>5 идей постов для экспертов</li>
+        <li>3 идеи сторис на сегодня</li>
+        <li>Контент-план на неделю</li>
+      </ul>
+    </div>
   </div>
 </body>
 </html>
