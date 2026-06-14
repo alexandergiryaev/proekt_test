@@ -3,23 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#fafafa">
+  <meta name="theme-color" content="#000000">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Генератор идей</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f2f2f7;
-      --surface: #ffffff;
-      --primary: #007aff;
-      --primary-soft: rgba(0, 122, 255, 0.1);
-      --text: #1c1c1e;
+      color-scheme: dark;
+      --bg: #000000;
+      --surface: #1c1c1e;
+      --surface-hover: #2c2c2e;
+      --primary: #0a84ff;
+      --primary-soft: rgba(10, 132, 255, 0.18);
+      --text: #f5f5f7;
       --text-secondary: #8e8e93;
-      --border: #e5e5ea;
-      --shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+      --border: #38383a;
+      --chevron: #636366;
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+      --desktop-bg: #0d0d0f;
     }
 
     * {
@@ -55,7 +59,7 @@
     .header {
       padding: max(1rem, env(safe-area-inset-top)) 1.25rem 1.25rem;
       padding-top: max(2.75rem, calc(env(safe-area-inset-top) + 1.25rem));
-      background: var(--surface);
+      background: var(--bg);
       border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
@@ -94,11 +98,6 @@
       background: var(--surface);
       border-radius: 14px;
       overflow: hidden;
-      box-shadow: 0 1px 0 var(--border);
-    }
-
-    .list-group li {
-      position: relative;
     }
 
     .list-group li + li {
@@ -135,8 +134,13 @@
       align-items: center;
       justify-content: center;
       border-radius: 8px;
-      font-size: 1.125rem;
       background: var(--primary-soft);
+      color: var(--primary);
+    }
+
+    .list-item-icon svg {
+      width: 1.125rem;
+      height: 1.125rem;
     }
 
     .list-item-text {
@@ -146,20 +150,23 @@
 
     .list-item-chevron {
       flex-shrink: 0;
-      color: #c7c7cc;
-      font-size: 1.25rem;
-      font-weight: 300;
-      line-height: 1;
+      color: var(--chevron);
+      display: flex;
+      align-items: center;
     }
 
-    /* Десктоп: карточка по центру */
+    .list-item-chevron svg {
+      width: 1.125rem;
+      height: 1.125rem;
+    }
+
     @media (min-width: 520px) {
       body {
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 2rem;
-        background: #e8e8ed;
+        background: var(--desktop-bg);
       }
 
       .app {
@@ -168,6 +175,7 @@
         overflow: hidden;
         box-shadow: var(--shadow);
         border: 1px solid var(--border);
+        background: var(--bg);
       }
 
       .header {
@@ -180,7 +188,7 @@
       }
 
       .list-item:hover {
-        background: #fafafa;
+        background: var(--surface-hover);
       }
 
       .list-item:active {
@@ -200,23 +208,50 @@
       <ul class="list-group">
         <li>
           <button type="button" class="list-item">
-            <span class="list-item-icon" aria-hidden="true">✍️</span>
+            <span class="list-item-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 20h9"/>
+                <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>
+              </svg>
+            </span>
             <span class="list-item-text">5 идей постов для экспертов</span>
-            <span class="list-item-chevron" aria-hidden="true">›</span>
+            <span class="list-item-chevron" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m9 18 6-6-6-6"/>
+              </svg>
+            </span>
           </button>
         </li>
         <li>
           <button type="button" class="list-item">
-            <span class="list-item-icon" aria-hidden="true">📱</span>
+            <span class="list-item-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="5" y="2" width="14" height="20" rx="2"/>
+                <path d="M12 18h.01"/>
+              </svg>
+            </span>
             <span class="list-item-text">3 идеи сторис на сегодня</span>
-            <span class="list-item-chevron" aria-hidden="true">›</span>
+            <span class="list-item-chevron" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m9 18 6-6-6-6"/>
+              </svg>
+            </span>
           </button>
         </li>
         <li>
           <button type="button" class="list-item">
-            <span class="list-item-icon" aria-hidden="true">📅</span>
+            <span class="list-item-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                <path d="M16 2v4M8 2v4M3 10h18"/>
+              </svg>
+            </span>
             <span class="list-item-text">Контент-план на неделю</span>
-            <span class="list-item-chevron" aria-hidden="true">›</span>
+            <span class="list-item-chevron" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m9 18 6-6-6-6"/>
+              </svg>
+            </span>
           </button>
         </li>
       </ul>
