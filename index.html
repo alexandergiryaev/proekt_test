@@ -2,141 +2,225 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#fafafa">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <title>Генератор идей</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg: #f2f2f7;
+      --surface: #ffffff;
+      --primary: #007aff;
+      --primary-soft: rgba(0, 122, 255, 0.1);
+      --text: #1c1c1e;
+      --text-secondary: #8e8e93;
+      --border: #e5e5ea;
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      height: 100%;
     }
 
     body {
       font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
       font-size: 16px;
-      line-height: 1.6;
-      color: #2d3748;
-      background: #eef1f8;
-      background-image:
-        radial-gradient(circle at 20% 20%, rgba(102, 126, 234, 0.12) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2.5rem 1.5rem;
+      line-height: 1.5;
+      color: var(--text);
+      background: var(--bg);
+      min-height: 100%;
+      min-height: 100dvh;
     }
 
-    .container {
-      background: #ffffff;
-      border-radius: 20px;
-      max-width: 520px;
-      width: 100%;
-      overflow: hidden;
-      border: 1px solid rgba(102, 126, 234, 0.12);
-      box-shadow:
-        0 4px 6px rgba(0, 0, 0, 0.04),
-        0 20px 50px rgba(102, 126, 234, 0.12);
+    .app {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      max-width: 480px;
+      margin: 0 auto;
+      background: var(--bg);
     }
 
     .header {
-      padding: 2.5rem 2.5rem 2rem;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: #fff;
+      padding: max(1rem, env(safe-area-inset-top)) 1.25rem 1.25rem;
+      padding-top: max(2.75rem, calc(env(safe-area-inset-top) + 1.25rem));
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
 
     h1 {
-      font-size: 1.875rem;
+      font-size: 1.625rem;
       font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.35rem;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 0.2rem;
     }
 
     .subtitle {
-      font-size: 1rem;
+      font-size: 0.9375rem;
       font-weight: 400;
-      opacity: 0.88;
+      color: var(--text-secondary);
     }
 
     .content {
-      padding: 2rem 2.5rem 2.5rem;
+      flex: 1;
+      padding: 1.5rem 1rem max(1.5rem, env(safe-area-inset-bottom));
     }
 
     .list-title {
-      font-size: 0.75rem;
+      font-size: 0.8125rem;
       font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #718096;
-      margin-bottom: 1.25rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+      padding-left: 0.75rem;
     }
 
-    ul {
+    .list-group {
       list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.875rem;
+      background: var(--surface);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 1px 0 var(--border);
     }
 
-    li {
+    .list-group li {
+      position: relative;
+    }
+
+    .list-group li + li {
+      border-top: 1px solid var(--border);
+    }
+
+    .list-item {
       display: flex;
       align-items: center;
-      gap: 1rem;
-      padding: 1.125rem 1.25rem;
-      background: #f7f8fc;
-      border-radius: 12px;
-      border: 1px solid #e8ecf4;
-      font-size: 0.975rem;
+      gap: 0.875rem;
+      width: 100%;
+      min-height: 3.25rem;
+      padding: 0.875rem 1rem;
+      background: var(--surface);
+      border: none;
+      font-family: inherit;
+      font-size: 1rem;
       font-weight: 500;
-      color: #2d3748;
-      transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+      color: var(--text);
+      text-align: left;
+      cursor: pointer;
+      transition: background 0.15s;
     }
 
-    li::before {
-      content: counter(item);
-      counter-increment: item;
+    .list-item:active {
+      background: var(--primary-soft);
+    }
+
+    .list-item-icon {
       flex-shrink: 0;
-      width: 2rem;
-      height: 2rem;
+      width: 2.25rem;
+      height: 2.25rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #fff;
       border-radius: 8px;
-      font-size: 0.8125rem;
-      font-weight: 600;
-      color: #667eea;
-      border: 1px solid #e0e7ff;
+      font-size: 1.125rem;
+      background: var(--primary-soft);
     }
 
-    ul {
-      counter-reset: item;
+    .list-item-text {
+      flex: 1;
+      min-width: 0;
     }
 
-    li:hover {
-      background: #fff;
-      border-color: #c7d2fe;
-      box-shadow: 0 4px 16px rgba(102, 126, 234, 0.1);
+    .list-item-chevron {
+      flex-shrink: 0;
+      color: #c7c7cc;
+      font-size: 1.25rem;
+      font-weight: 300;
+      line-height: 1;
+    }
+
+    /* Десктоп: карточка по центру */
+    @media (min-width: 520px) {
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        background: #e8e8ed;
+      }
+
+      .app {
+        min-height: auto;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--border);
+      }
+
+      .header {
+        padding-top: 2rem;
+        position: static;
+      }
+
+      .content {
+        padding: 1.25rem 1.25rem 1.5rem;
+      }
+
+      .list-item:hover {
+        background: #fafafa;
+      }
+
+      .list-item:active {
+        background: var(--primary-soft);
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="app">
     <header class="header">
       <h1>Генератор идей</h1>
       <p class="subtitle">для постов</p>
     </header>
-    <div class="content">
+    <main class="content">
       <p class="list-title">Что можно создать</p>
-      <ul>
-        <li>5 идей постов для экспертов</li>
-        <li>3 идеи сторис на сегодня</li>
-        <li>Контент-план на неделю</li>
+      <ul class="list-group">
+        <li>
+          <button type="button" class="list-item">
+            <span class="list-item-icon" aria-hidden="true">✍️</span>
+            <span class="list-item-text">5 идей постов для экспертов</span>
+            <span class="list-item-chevron" aria-hidden="true">›</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="list-item">
+            <span class="list-item-icon" aria-hidden="true">📱</span>
+            <span class="list-item-text">3 идеи сторис на сегодня</span>
+            <span class="list-item-chevron" aria-hidden="true">›</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="list-item">
+            <span class="list-item-icon" aria-hidden="true">📅</span>
+            <span class="list-item-text">Контент-план на неделю</span>
+            <span class="list-item-chevron" aria-hidden="true">›</span>
+          </button>
+        </li>
       </ul>
-    </div>
+    </main>
   </div>
 </body>
 </html>
